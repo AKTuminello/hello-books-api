@@ -9,10 +9,13 @@ def hello_world():
     new_hello_world = "Hello, World!"
     return new_hello_world, 200
 
-@hello_world_bp.route('/hello/JSON,', methods=['GET'])
+@hello_world_bp.route('/hello/JSON', methods=['GET'])
 def say_hello_json():
     return {
         "name":"TombAnneX", 
         "message":"This is exciting.",
         "hobbies": ["coding", "reading", "word-smithing"]
-    }, 200
+    }
+    new_hobby= "surfing"
+    response_bo] + new_hobby
+    return response_body
