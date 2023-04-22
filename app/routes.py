@@ -23,7 +23,8 @@ def handle_books():
         books_response.append({
             "id": book.id,
             "title": book.title,
-            "description": book.description})
+            "description": book.description,
+            })
     return jsonify(books_response)
 
 
