@@ -1,5 +1,11 @@
 from flask import Blueprint
 
+class Book:
+    def __init__(self, id, title, description):
+        self.id = id
+        self.title = title
+        self.description = description
+        
 hello_world_bp= Blueprint('hello_world', __name__)
 
 @hello_world_bp.route('/hello_world', methods=['GET'])
@@ -16,6 +22,14 @@ def say_hello_json():
         "message":"This is exciting.",
         "hobbies": ["coding", "reading", "word-smithing"]
     }
+@hello_world_bp.route('/broken-endpoint-with-broken-server-code', methods=['GET'])
+    
+def broken_endpoint():
+    response_body = {
+        "name":"Ada Lovelace", 
+        "message":"Hello.",
+        "hobbies": ["Fishing", "Swimming", "Watching Reality Shows"]
+    }
     new_hobby= "surfing"
-    response_bo] + new_hobby
+    response_body. append(new_hobby)
     return response_body
