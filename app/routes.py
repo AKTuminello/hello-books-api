@@ -35,7 +35,7 @@ books_bp = Blueprint("books", __name__, url_prefix="/books")
 #                 "id": book.id,
 #                 "title": book.title,
 #                 "description": book.description,
-            }
+#          }
     
 
 @hello_world_bp.route('/hello_world', methods=['GET'])
