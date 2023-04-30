@@ -15,7 +15,7 @@ def validate_book(book_id):
     if not book:
         abort(make_response({"message":f"book {book_id} not found"}, 404))
 
-        return book
+    return book
 #route functions
 
 @books_bp.route("", methods=["GET"])
@@ -43,8 +43,7 @@ def create_book():
 @books_bp.route("/<book_id>", methods=["GET"])
 def read_one_book(book_id):
     book = Book.query.get(book_id)
-    if book is None:
-        return make_response("", 404)
+    
     return {
         "id": book.id,
         "title": book.title,
