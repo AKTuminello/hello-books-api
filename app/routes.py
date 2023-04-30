@@ -1,8 +1,6 @@
-from flask import Blueprint, jsonify    
-
 from app import db
-from app.models.books import Book, jsonify, make_response, request
-
+from app.models.books import Book
+from flask import Blueprint, jsonify, make_response, request, abort
 
 books_bp = Blueprint("books_bp", __name__, url_prefix="/books") 
 
@@ -27,4 +25,15 @@ def create_book():
     db.session.commit()
     
     return f"Book {new_book.title} successfully created", 201
+
+@books_bp.route("/<book_id>", methods=["GET"])
+def read_one_book(book_id):
+    book = Book.query.get(book_id)
+    if book is None:
+        return make_response("", 404)
+    return {
+        "id": book.id,
+        "title": book.title,
+        "description": book.description,
+    }
 
