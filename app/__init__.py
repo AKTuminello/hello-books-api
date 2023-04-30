@@ -12,14 +12,13 @@ def create_app(test_config=None):
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql+psycopg2://postgres:postgres@localhost:5432/hello_books_development"
 
+
+    from app.models.books import Book
+
     db.init_app(app)
     migrate.init_app(app, db)
 
 
 
-    from .routes import hello_world_bp
-    app.register_blueprint(hello_world_bp)
-    from app.models.books import Book
-
-
+    
     return app

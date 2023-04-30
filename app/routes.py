@@ -1,4 +1,7 @@
-from flask import Blueprint, jsonify    
+from flask import Blueprint, jsonify, make_response, request
+
+from app import db
+from app.models.books import Book
 
 # class Book:
 #     def __init__(self, id, title, description):
@@ -13,10 +16,19 @@ from flask import Blueprint, jsonify
 #     Book(4, "Do You Love Me? It Depends", "A romance novel set New York City"),
 # ]
         
-hello_world_bp= Blueprint('hello_world', __name__)
 books_bp = Blueprint("books", __name__, url_prefix="/books") 
 
-@books_bp.route("", methods=["GET"])
+@books_bp.route("", methods=["POST"])
+def handle_books():
+    request_body = request.get_json()
+    new_book = Book(title=request_body["title"],
+                    description=request_body["description"])
+    db.session.add(new_book)
+    db.session.commit()
+    return make_response(f"Book {new_book.title} successfully created", 201)
+
+
+# @books_bp.route("", methods=["GET"])
 # def handle_books():
 #     books_response = []
 #     for book in books:
@@ -37,29 +49,3 @@ books_bp = Blueprint("books", __name__, url_prefix="/books")
 #                 "description": book.description,
 #          }
     
-
-@hello_world_bp.route('/hello_world', methods=['GET'])
-
-def hello_world():
-
-    new_hello_world = "Hello, World!"
-    return new_hello_world, 200
-
-@hello_world_bp.route('/hello/JSON', methods=['GET'])
-def say_hello_json():
-    return {
-        "name":"TombAnneX", 
-        "message":"This is exciting.",
-        "hobbies": ["coding", "reading", "word-smithing"]
-    }
-@hello_world_bp.route('/broken-endpoint-with-broken-server-code', methods=['GET'])
-    
-def broken_endpoint():
-    response_body = {
-        "name":"Ada Lovelace", 
-        "message":"Hello.",
-        "hobbies": ["Fishing", "Swimming", "Watching Reality Shows"]
-    }
-    new_hobby= "surfing"
-    response_body.append(new_hobby)
-    return response_body
